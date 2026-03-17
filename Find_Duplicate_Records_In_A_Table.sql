@@ -29,7 +29,7 @@ from Employees
 group by 1,2
 having count(*) > 1;
 
--- To Viewthe Entire Duplicate Records using window function
+-- To View the Entire Duplicate Records using window function
 
 -- Option 1:
 -- using row_number Function using CTE
