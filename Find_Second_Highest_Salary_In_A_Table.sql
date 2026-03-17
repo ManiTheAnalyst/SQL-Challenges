@@ -13,7 +13,7 @@ INSERT INTO employees (emp_id, name, salary) VALUES
 (4, 'David', 75000),
 (5, 'Eve', 85000);
 
--- option 1: nested subquery approach
+-- Option 1: nested subquery approach
 select max(salary) as second_highest_salary
 from employees
 where salary < ( 
@@ -22,7 +22,7 @@ where salary < (
     from employees  
 );
 
--- option 2: using offset & limit
+-- Option 2: using offset & limit
 select distinct salary -- excludes duplicate values to find the distinct second-highest
 from employees
 order by salary desc
@@ -30,7 +30,7 @@ limit 1                -- restricts the output to a single record
 offset 1;              -- bypasses the top salary to retrieve the second-highest
 
 
--- option 3: using window function dense_rank in cte
+-- Option 3: using window function dense_rank in cte
 with ranked_employees as (
     select 
         salary, 
@@ -41,7 +41,7 @@ select distinct salary -- excludes duplicate values to find the distinct
 from ranked_employees
 where rnk = 2;
 
--- option 4: using the qualify clause which allows us to filter on the results of a window function directly
+-- Option 4: using the qualify clause which allows us to filter on the results of a window function directly
 select distinct salary
 from employees
 qualify dense_rank() over(order by salary desc) = 2;
